@@ -1,3 +1,5 @@
+library(testthat)
+
 input.string <- "
 lat,lon,geohash,precision
 39.92324,116.3906,wx4g0,5
@@ -20,7 +22,6 @@ test_that("Known points give expected geohash", {
         expect_true(dat[i, "lat"] < decode.output$lat.range[2])
         expect_true(dat[i, "lon"] > decode.output$lon.range[1])
         expect_true(dat[i, "lon"] < decode.output$lon.range[2])
-        
     }
 })
 
@@ -38,8 +39,4 @@ test_that("Bad values fail", {
     expect_error(DecodeGeohash("i"))
     expect_error(DecodeGeohash("l"))
     expect_error(DecodeGeohash(c("bc", "cd")))
-    
-    
-    
 })
-

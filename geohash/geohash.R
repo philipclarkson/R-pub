@@ -15,7 +15,7 @@ EncodeGeohash <- function(latitude, longitude, precision = 12) {
     #   precision: The number of characters in the required geohash.
     # Returns:
     #   A string with the geohash of the lat/long pair.
-    
+
     stopifnot(length(latitude) == 1,
               length(longitude) == 1,
               precision > 0,
@@ -23,14 +23,14 @@ EncodeGeohash <- function(latitude, longitude, precision = 12) {
               latitude < 90,
               longitude > -180,
               longitude < 180)
-    
+
     lat <- c(-90, 90)
     lon <- c(-180, 180)
     is.even <- TRUE
     bit <- 1
     ch <- 0
     geohash <- ""
-    
+
     while (nchar(geohash) < precision) {
         if (is.even) {
             mid <- mean(lon)
@@ -58,9 +58,9 @@ EncodeGeohash <- function(latitude, longitude, precision = 12) {
             ch <- 0
         }
     }
-t
+
     return(geohash)
-    
+
 }
 
 DecodeGeohash <- function(geohash) {
@@ -74,11 +74,11 @@ DecodeGeohash <- function(geohash) {
     #      lon.range: A vector of length 2, contains the min and max longitude.
     #      lat: The mid-point of lat.range.
     #      lon: The mid-point of lon.range.
-    
+
     stopifnot(inherits(geohash, "character"),
               length(geohash) == 1,
               all(strsplit(geohash, "")[[1]] %in% BASE32))
-    
+
     is.even <- TRUE
     lat <- c(-90, 90)
     lon <- c(-180, 180)
@@ -106,7 +106,4 @@ DecodeGeohash <- function(geohash) {
 
     return(list(lat.range = lat, lon.range = lon,
                 lat = mean(lat), lon = mean(lon)))
-                   
-    
 }
-
